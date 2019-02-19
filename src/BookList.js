@@ -10,10 +10,11 @@ class BookList extends Component {
 
 render() {
 
+    const { books } = this.props
 
     return (
         <ol className="books-grid">
-            {this.props.books.map((book) => (
+            {books.map((book) => (
                 <Book book={book} />
             ))}
         </ol>
