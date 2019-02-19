@@ -61,7 +61,7 @@ class BooksApp extends React.Component {
               <div className="bookshelf">
                   <h2 className="bookshelf-title">Test Bookshelf</h2>
                   <div className="bookshelf-books">
-                    <BookList />
+                    <BookList books = {this.state.books} />
                     </div>
                   </div>
 
