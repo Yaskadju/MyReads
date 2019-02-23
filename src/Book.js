@@ -8,6 +8,12 @@ static propTypes = {
     book: PropTypes.object.isRequired
 }
 
+state = { shelfChange: false }
+
+onShelfChange() {
+    this.setState({ selfChange: true })
+}
+
 render() {
 
     const { book } = this.props;
@@ -15,12 +21,18 @@ render() {
     return (
         <li>
             <div className="book">
+
+                <div>Did you change ? {this.state.selfChange ? book.shelf : 'no'} </div>
+
                 <div className="book-top">
                 <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` 
             }}>
             </div>
                 
-                <ShelfChanger book = {book} />
+                <ShelfChanger book = {book}
+                    shelfChange = {this.state.shelfChange}
+                    notifyShelfChange={() => this.onShelfChange()
+                    } />
 
                 </div>
 
