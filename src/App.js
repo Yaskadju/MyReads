@@ -20,6 +20,13 @@ class BooksApp extends React.Component {
   }
 
   render() {
+
+    let { books } = this.state;
+    let currentBooks = books.filter( book => book.shelf === "currentlyReading")
+    let wantToBooks = books.filter( book => book.shelf === "wantToRead")
+    let readBooks = books.filter(book => book.shelf === "read")
+
+
     return (
       <div className="app">
         {this.state.showSearchPage ? (
@@ -28,7 +35,33 @@ class BooksApp extends React.Component {
         ) : (
           <div className="list-books">
             <div className="list-books-title">
-              <h1>My Reads</h1>
+              <h1>MyReads</h1>
+            </div>
+            <div className="list-books-content">
+              <div>
+
+              <div className="bookshelf">
+                  <h2 className="bookshelf-title">Currently Reading</h2>
+                  <div className="bookshelf-books">
+                    <BookList books = { currentBooks } />
+                    </div>
+                  </div>
+
+                  <div className="bookshelf">
+                  <h2 className="bookshelf-title">Want to Read</h2>
+                  <div className="bookshelf-books">
+                    <BookList books = { wantToBooks } />
+                    </div>
+                  </div>
+
+                  <div className="bookshelf">
+                  <h2 className="bookshelf-title">Read</h2>
+                  <div className="bookshelf-books">
+                    <BookList books = { readBooks } />
+                  </div>
+                </div>
+
+              </div>
             </div>
 
             <div className="open-search">
