@@ -10,7 +10,8 @@ class BooksApp extends React.Component {
     
     books: [],
 
-    showSearchPage: false
+    showSearchPage: false,
+    shelfChange: false
   }
 
   componentDidMount() {
@@ -19,9 +20,13 @@ class BooksApp extends React.Component {
     })
   }
 
+  onShelfChange() {
+    this.setState( {shelfChange: true })
+  }
+
   render() {
 
-    let { books } = this.state;
+    const { books } = this.state;
     let currentBooks = books.filter( book => book.shelf === "currentlyReading")
     let wantToBooks = books.filter( book => book.shelf === "wantToRead")
     let readBooks = books.filter(book => book.shelf === "read")
@@ -30,8 +35,19 @@ class BooksApp extends React.Component {
     return (
       <div className="app">
         {this.state.showSearchPage ? (
-         
-          // End of "if" clause
+         <div className="search-books">
+            <div className="search-books-bar">
+                <a className="close-search" onClick={() =>
+                this.setState({ showSearchPage: false })}>Close</a>
+                <div className="search-books-input-wrapper">
+                    <input type="text" placeholder="Search by title or author"/>
+                </div>
+            </div>
+            <div className="search-books-results">
+                  <ol className="books-grid"></ol>
+            </div>
+         </div>
+          
         ) : (
           <div className="list-books">
             <div className="list-books-title">
@@ -43,24 +59,33 @@ class BooksApp extends React.Component {
               <div className="bookshelf">
                   <h2 className="bookshelf-title">Currently Reading</h2>
                   <div className="bookshelf-books">
-                    <BookList books = { currentBooks } />
+                    <BookList books = { currentBooks }
+                    shelfChange = {this.state.shelfChange}
+                    notifyShelfChange = {() =>
+                    this.onShelfChange() } 
+                    />
                     </div>
                   </div>
 
                   <div className="bookshelf">
                   <h2 className="bookshelf-title">Want to Read</h2>
                   <div className="bookshelf-books">
-                    <BookList books = { wantToBooks } />
+                    <BookList books = { wantToBooks }
+                    shelfChange = {this.state.shelfChange}
+                    notifyShelfChange = {() =>
+                    this.onShelfChange() } />
                     </div>
                   </div>
 
                   <div className="bookshelf">
                   <h2 className="bookshelf-title">Read</h2>
                   <div className="bookshelf-books">
-                    <BookList books = { readBooks } />
+                    <BookList 
+                    books = { readBooks }
+                    shelfChange = {this.state.shelfChange}
+                    notifyShelfChange={() => this.onShelfChange()} />
                   </div>
                 </div>
-
               </div>
             </div>
 
@@ -69,7 +94,6 @@ class BooksApp extends React.Component {
             </div>
           </div>
         )}
-        {/* End of "else" clause  */}
       </div>
     )
   }

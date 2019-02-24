@@ -5,13 +5,17 @@ import ShelfChanger from './ShelfChanger'
 class Book extends React.Component {
 
 static propTypes = {
-    book: PropTypes.object.isRequired
+    book: PropTypes.object.isRequired,
+    shelfChange: PropTypes.bool.isRequired,
+    notifyShelfChange: PropTypes.func.isRequired
 }
 
 state = { shelfChange: false }
 
 onShelfChange() {
+    console.log(this.props)
     this.setState({ selfChange: true })
+    this.props.notifyShelfChange();
 }
 
 render() {
@@ -29,7 +33,8 @@ render() {
             }}>
             </div>
                 
-                <ShelfChanger book = {book}
+                <ShelfChanger 
+                    book = {book}
                     shelfChange = {this.state.shelfChange}
                     notifyShelfChange={() => this.onShelfChange()
                     } />
