@@ -1,4 +1,6 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
+import { Route } from 'react-router-dom'
 import './App.css'
 import * as BooksAPI from './BooksAPI'
 import BookList from './BookList'
@@ -34,11 +36,11 @@ class BooksApp extends React.Component {
 
     return (
       <div className="app">
-        {this.state.showSearchPage ? (
+       <Route path="/search" render={({ history }) => (
          <div className="search-books">
             <div className="search-books-bar">
                 <a className="close-search" onClick={() =>
-                this.setState({ showSearchPage: false })}>Close</a>
+                  this.setState({ showSearchPage: false })}> Close </a>
                 <div className="search-books-input-wrapper">
                     <input type="text" placeholder="Search by title or author"/>
                 </div>
@@ -48,7 +50,7 @@ class BooksApp extends React.Component {
             </div>
          </div>
           
-        ) : (
+        )} />
           <div className="list-books">
             <div className="list-books-title">
               <h1>MyReads</h1>
@@ -90,10 +92,10 @@ class BooksApp extends React.Component {
             </div>
 
             <div className="open-search">
-              <button onClick={() => this.setState({ showSearchPage: true })}>Add a book</button>
+              <a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a>
             </div>
           </div>
-        )}
+        )} />
       </div>
     )
   }
